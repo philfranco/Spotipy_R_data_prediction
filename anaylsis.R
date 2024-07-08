@@ -5,8 +5,8 @@ library(MASS)
 library(psych)
 library(ggplot2)
 # ----------------------------------------
-setwd("D:\\education\\MastersRowan\\AppliedMultivariateStats\\final\\archive\\")
-data <- read.csv("scraped.csv")
+setwd("SET YOUR OWN FOLDER PATH")
+data <- read.csv("spotipy_music_genres.csv")
 data_rem <- data[,-c(1,2,3)]
 
 onlyData <- data_rem[,-c(1)]

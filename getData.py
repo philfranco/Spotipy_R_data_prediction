@@ -1,10 +1,14 @@
+'''
+Used to obtain data from spotify by song genre. Obtained the top 50 songs at the time.
+The Spotify API rate limited obtaining songs so this is what was used.
+'''
+
 import sys
 import spotipy
 import pandas as pd
 
 from spotipy.oauth2 import SpotifyClientCredentials
 spotify = spotipy.Spotify(auth_manager=SpotifyClientCredentials())
-
 
 dataArt = {"artist":[],
            "song":[],
@@ -23,7 +27,7 @@ dataArt = {"artist":[],
            "mode":[],
            "valence":[]}
 
-missing = 0 
+missing = 0
 i = 0
 
 tracksRock = spotify.search(q = 'genre:' + "Rock", type='track',market='GB',limit=50, offset=0)
@@ -65,7 +69,7 @@ for i in range(50):
     dataArt['ids'].append(tracksElectronic['tracks']["items"][i]['id'])
     dataArt['genre'].append("EDM")
     #print(tracksElectronic['tracks']["items"][i]["artists"][0]['name'] + ': ' + tracksElectronic['tracks']["items"][i]['name'])
-                
+
 for i in range(250):
     track = spotify.audio_features(dataArt['ids'][i])
     dataArt['acousticness'].append(track[0]['acousticness'])
@@ -82,4 +86,4 @@ for i in range(250):
     dataArt['valence'].append(track[0]['valence'])
 
 dfArt = pd.DataFrame(dataArt)
-dfArt.to_csv('D:\\education\\MastersRowan\\AppliedMultivariateStats\\final\\archive\\scraped.csv', index=False)
+dfArt.to_csv('spotipyMusicGenres.csv', index=False)
